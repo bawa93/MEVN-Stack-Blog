@@ -16,6 +16,8 @@ var PostsSchema = new mongoose.Schema({
         required: [true, "Author is Required"],
         ref: Users
     },
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('Posts', PostsSchema);

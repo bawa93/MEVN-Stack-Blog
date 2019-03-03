@@ -26,6 +26,19 @@ router.get('/posts', function (req, res, next) {
 
 });
 
+router.get('/posts/:id', function (req, res, next) {
+  // res.render('index', { title: 'Express' });
+  Posts.find({
+    _id: req.params.id
+  }).populate('category').populate('author').exec(function (err, response) {
+    if (err) {
+      console.log(err)
+    }
+    res.json(response);
+  });
+
+});
+
 
 router.get('/categories', function (req, res, next) {
   // res.render('index', { title: 'Express' });
@@ -71,7 +84,9 @@ router.get('/posts/create', function(req, res, next) {
   res.render('posts/create');
 });
 
-
+router.post('/test', function(req, res, next) {
+  return res.send(req.body);
+})
 router.post('/posts', function (req, res, next) {
   // res.render('index', { title: 'Express' });
 
@@ -81,6 +96,7 @@ router.post('/posts', function (req, res, next) {
       category: req.body.category,
       author: req.body.author
   });
+
 
 
   post.save(function(err, result) {
